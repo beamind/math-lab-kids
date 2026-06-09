@@ -104,128 +104,14 @@
 
       <section class="practice-panel">
         <p class="section-label">迁移练习</p>
-        <div class="practice-list">
-          <article class="practice-card practice-card-guided" data-practice="practice-1">
-            <div class="practice-main">
-              <h2>练习 1：先拼一拼</h2>
-              <p>已知 4a + 17b + 3c = 72，a + 8b + 2c = 28，求</p>
-              <p class="practice-target">
-                <span class="fraction"><span>3b + c</span><span>a + 2b</span></span>
-              </p>
-              <p class="practice-hint">设 X = a + 2b，Y = 3b + c。</p>
-            </div>
-            <div class="practice-builders">
-              <div class="mini-builder" data-practice-builder="practice-1-a">
-                <p class="mini-target">目标：4a + 17b + 3c = 72</p>
-                <div class="mini-controls">
-                  <button type="button" data-action="minus-x">- X</button>
-                  <span><span data-count="x">0</span>X</span>
-                  <button type="button" data-action="plus-x">+ X</button>
-                  <button type="button" data-action="minus-y">- Y</button>
-                  <span><span data-count="y">0</span>Y</span>
-                  <button type="button" data-action="plus-y">+ Y</button>
-                </div>
-                <div class="mini-expanded" data-expanded></div>
-                <div class="mini-status" data-status></div>
-              </div>
-              <div class="mini-builder" data-practice-builder="practice-1-b">
-                <p class="mini-target">目标：a + 8b + 2c = 28</p>
-                <div class="mini-controls">
-                  <button type="button" data-action="minus-x">- X</button>
-                  <span><span data-count="x">0</span>X</span>
-                  <button type="button" data-action="plus-x">+ X</button>
-                  <button type="button" data-action="minus-y">- Y</button>
-                  <span><span data-count="y">0</span>Y</span>
-                  <button type="button" data-action="plus-y">+ Y</button>
-                </div>
-                <div class="mini-expanded" data-expanded></div>
-                <div class="mini-status" data-status></div>
-              </div>
-            </div>
-            <button type="button" data-toggle-answer="practice-1">看答案</button>
-            <div id="practice-1" class="practice-answer" hidden>
-              设 X = a + 2b，Y = 3b + c。原条件变成 4X + 3Y = 72，X + 2Y = 28。
-              解得 X = 12，Y = 8，所以 Y / X = 2 / 3。
-            </div>
-          </article>
-
-          <article class="practice-card practice-card-guided" data-practice="practice-2">
-            <div class="practice-main">
-              <h2>练习 2：再拼一拼</h2>
-              <p>已知 6a + 5b + 2c = 60，4a + 6b + 4c = 80，求</p>
-              <p class="practice-target">
-                <span class="fraction"><span>b + c</span><span>2a + b</span></span>
-              </p>
-              <p class="practice-hint">设 X = 2a + b，Y = b + c。</p>
-            </div>
-            <div class="practice-builders">
-              <div class="mini-builder" data-practice-builder="practice-2-a">
-                <p class="mini-target">目标：6a + 5b + 2c = 60</p>
-                <div class="mini-controls">
-                  <button type="button" data-action="minus-x">- X</button>
-                  <span><span data-count="x">0</span>X</span>
-                  <button type="button" data-action="plus-x">+ X</button>
-                  <button type="button" data-action="minus-y">- Y</button>
-                  <span><span data-count="y">0</span>Y</span>
-                  <button type="button" data-action="plus-y">+ Y</button>
-                </div>
-                <div class="mini-expanded" data-expanded></div>
-                <div class="mini-status" data-status></div>
-              </div>
-              <div class="mini-builder" data-practice-builder="practice-2-b">
-                <p class="mini-target">目标：4a + 6b + 4c = 80</p>
-                <div class="mini-controls">
-                  <button type="button" data-action="minus-x">- X</button>
-                  <span><span data-count="x">0</span>X</span>
-                  <button type="button" data-action="plus-x">+ X</button>
-                  <button type="button" data-action="minus-y">- Y</button>
-                  <span><span data-count="y">0</span>Y</span>
-                  <button type="button" data-action="plus-y">+ Y</button>
-                </div>
-                <div class="mini-expanded" data-expanded></div>
-                <div class="mini-status" data-status></div>
-              </div>
-            </div>
-            <button type="button" data-toggle-answer="practice-2">看答案</button>
-            <div id="practice-2" class="practice-answer" hidden>
-              设 X = 2a + b，Y = b + c。原条件变成 3X + 2Y = 60，2X + 4Y = 80。
-              解得 X = 10，Y = 15，所以 Y / X = 3 / 2。
-            </div>
-          </article>
-
-          <article class="practice-card">
-            <div class="practice-main">
-              <h2>练习 3：用笔独立算</h2>
-              <p>已知 5a + 7b + c = 63，2a + 8b + 3c = 72，求</p>
-              <p class="practice-target">
-                <span class="fraction"><span>2b + c</span><span>a + b</span></span>
-              </p>
-            </div>
-            <button type="button" data-toggle-answer="practice-3">看答案</button>
-            <div id="practice-3" class="practice-answer" hidden>
-              设 X = a + b，Y = 2b + c。原条件变成 5X + Y = 63，2X + 3Y = 72。
-              解得 X = 9，Y = 18，所以 Y / X = 2。
-            </div>
-          </article>
-
-          <article class="practice-card">
-            <div class="practice-main">
-              <h2>练习 4：用笔独立算</h2>
-              <p>已知 5a + 17b + 2c = 75，2a + 9b + 3c = 85，求</p>
-              <p class="practice-target">
-                <span class="fraction"><span>b + c</span><span>a + 3b</span></span>
-              </p>
-            </div>
-            <button type="button" data-toggle-answer="practice-4">看答案</button>
-            <div id="practice-4" class="practice-answer" hidden>
-              设 X = a + 3b，Y = b + c。原条件变成 5X + 2Y = 75，2X + 3Y = 85。
-              解得 X = 5，Y = 25，所以 Y / X = 5。
-            </div>
-          </article>
-        </div>
+        <p class="practice-intro">
+          前 7 道可以继续用鼠标拼，把条件改写成 X、Y 的方程组；后 3 道撤掉提示，用笔独立完成。
+        </p>
+        <div class="practice-list" id="practiceList"></div>
       </section>
     </main>
 
     <script src="main.js"></script>
   </body>
 </html>
+
