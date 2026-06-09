@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>整体代换积木机</title>
+    <link rel="stylesheet" href="../../assets/styles/base.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <a class="back-link" href="../../index.html">返回专题列表</a>
+        <p class="eyebrow">代数思维专题</p>
+        <h1>整体代换积木机</h1>
+        <p class="intro-text">
+          这道题的关键不是分别算出 a、b、c，而是发现题目真正关心的两个整体。
+        </p>
+      </header>
+
+      <section class="problem-panel" aria-label="原题">
+        <div>
+          <p class="section-label">原题</p>
+          <p class="formula">已知 2a + 13b + 3c = 90，3a + 9b + c = 72</p>
+          <p class="formula">求 <span class="fraction"><span>3b + c</span><span>a + 2b</span></span></p>
+        </div>
+        <div class="idea-box">
+          <p class="section-label">先看目标</p>
+          <div class="block-row">
+            <span class="math-block blue">X = a + 2b</span>
+            <span class="math-block red">Y = 3b + c</span>
+          </div>
+          <p>题目要求的就是 <strong>Y / X</strong>。</p>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <article class="step-card">
+          <div class="step-head">
+            <span class="step-number">1</span>
+            <div>
+              <h2>拼第一条线索</h2>
+              <p>用 X 和 Y 拼出 2a + 13b + 3c。</p>
+            </div>
+          </div>
+          <div class="target-line">目标：2a + 13b + 3c = 90</div>
+          <div class="builder" data-builder="first">
+            <div class="controls">
+              <button type="button" data-action="minus-x">- X</button>
+              <span class="count-pill"><span data-count="x">0</span> 个 X</span>
+              <button type="button" data-action="plus-x">+ X</button>
+              <button type="button" data-action="minus-y">- Y</button>
+              <span class="count-pill"><span data-count="y">0</span> 个 Y</span>
+              <button type="button" data-action="plus-y">+ Y</button>
+            </div>
+            <div class="expanded" data-expanded></div>
+            <div class="match-status" data-status></div>
+          </div>
+        </article>
+
+        <article class="step-card">
+          <div class="step-head">
+            <span class="step-number">2</span>
+            <div>
+              <h2>拼第二条线索</h2>
+              <p>用 X 和 Y 拼出 3a + 9b + c。</p>
+            </div>
+          </div>
+          <div class="target-line">目标：3a + 9b + c = 72</div>
+          <div class="builder" data-builder="second">
+            <div class="controls">
+              <button type="button" data-action="minus-x">- X</button>
+              <span class="count-pill"><span data-count="x">0</span> 个 X</span>
+              <button type="button" data-action="plus-x">+ X</button>
+              <button type="button" data-action="minus-y">- Y</button>
+              <span class="count-pill"><span data-count="y">0</span> 个 Y</span>
+              <button type="button" data-action="plus-y">+ Y</button>
+            </div>
+            <div class="expanded" data-expanded></div>
+            <div class="match-status" data-status></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="reduced-panel" aria-live="polite">
+        <p class="section-label">拼出来以后</p>
+        <div id="reducedEquations" class="reduced-equations">
+          先把两条线索都拼出来。
+        </div>
+      </section>
+
+      <section class="solver-panel">
+        <div class="step-head">
+          <span class="step-number">3</span>
+          <div>
+            <h2>解二元一次方程组</h2>
+            <p>题目已经转化成关于 X 和 Y 的方程组，接下来直接用消元法求解。</p>
+          </div>
+        </div>
+
+        <button id="solveButton" class="primary-action" type="button" disabled>解方程组</button>
+        <div id="solutionSteps" class="solution-steps"></div>
+      </section>
+
+      <section class="practice-panel">
+        <p class="section-label">迁移练习</p>
+        <div class="practice-list">
+          <article class="practice-card practice-card-guided" data-practice="practice-1">
+            <div class="practice-main">
+              <h2>练习 1：先拼一拼</h2>
+              <p>已知 4a + 17b + 3c = 72，a + 8b + 2c = 28，求</p>
+              <p class="practice-target">
+                <span class="fraction"><span>3b + c</span><span>a + 2b</span></span>
+              </p>
+              <p class="practice-hint">设 X = a + 2b，Y = 3b + c。</p>
+            </div>
+            <div class="practice-builders">
+              <div class="mini-builder" data-practice-builder="practice-1-a">
+                <p class="mini-target">目标：4a + 17b + 3c = 72</p>
+                <div class="mini-controls">
+                  <button type="button" data-action="minus-x">- X</button>
+                  <span><span data-count="x">0</span>X</span>
+                  <button type="button" data-action="plus-x">+ X</button>
+                  <button type="button" data-action="minus-y">- Y</button>
+                  <span><span data-count="y">0</span>Y</span>
+                  <button type="button" data-action="plus-y">+ Y</button>
+                </div>
+                <div class="mini-expanded" data-expanded></div>
+                <div class="mini-status" data-status></div>
+              </div>
+              <div class="mini-builder" data-practice-builder="practice-1-b">
+                <p class="mini-target">目标：a + 8b + 2c = 28</p>
+                <div class="mini-controls">
+                  <button type="button" data-action="minus-x">- X</button>
+                  <span><span data-count="x">0</span>X</span>
+                  <button type="button" data-action="plus-x">+ X</button>
+                  <button type="button" data-action="minus-y">- Y</button>
+                  <span><span data-count="y">0</span>Y</span>
+                  <button type="button" data-action="plus-y">+ Y</button>
+                </div>
+                <div class="mini-expanded" data-expanded></div>
+                <div class="mini-status" data-status></div>
+              </div>
+            </div>
+            <button type="button" data-toggle-answer="practice-1">看答案</button>
+            <div id="practice-1" class="practice-answer" hidden>
+              设 X = a + 2b，Y = 3b + c。原条件变成 4X + 3Y = 72，X + 2Y = 28。
+              解得 X = 12，Y = 8，所以 Y / X = 2 / 3。
+            </div>
+          </article>
+
+          <article class="practice-card practice-card-guided" data-practice="practice-2">
+            <div class="practice-main">
+              <h2>练习 2：再拼一拼</h2>
+              <p>已知 6a + 5b + 2c = 60，4a + 6b + 4c = 80，求</p>
+              <p class="practice-target">
+                <span class="fraction"><span>b + c</span><span>2a + b</span></span>
+              </p>
+              <p class="practice-hint">设 X = 2a + b，Y = b + c。</p>
+            </div>
+            <div class="practice-builders">
+              <div class="mini-builder" data-practice-builder="practice-2-a">
+                <p class="mini-target">目标：6a + 5b + 2c = 60</p>
+                <div class="mini-controls">
+                  <button type="button" data-action="minus-x">- X</button>
+                  <span><span data-count="x">0</span>X</span>
+                  <button type="button" data-action="plus-x">+ X</button>
+                  <button type="button" data-action="minus-y">- Y</button>
+                  <span><span data-count="y">0</span>Y</span>
+                  <button type="button" data-action="plus-y">+ Y</button>
+                </div>
+                <div class="mini-expanded" data-expanded></div>
+                <div class="mini-status" data-status></div>
+              </div>
+              <div class="mini-builder" data-practice-builder="practice-2-b">
+                <p class="mini-target">目标：4a + 6b + 4c = 80</p>
+                <div class="mini-controls">
+                  <button type="button" data-action="minus-x">- X</button>
+                  <span><span data-count="x">0</span>X</span>
+                  <button type="button" data-action="plus-x">+ X</button>
+                  <button type="button" data-action="minus-y">- Y</button>
+                  <span><span data-count="y">0</span>Y</span>
+                  <button type="button" data-action="plus-y">+ Y</button>
+                </div>
+                <div class="mini-expanded" data-expanded></div>
+                <div class="mini-status" data-status></div>
+              </div>
+            </div>
+            <button type="button" data-toggle-answer="practice-2">看答案</button>
+            <div id="practice-2" class="practice-answer" hidden>
+              设 X = 2a + b，Y = b + c。原条件变成 3X + 2Y = 60，2X + 4Y = 80。
+              解得 X = 10，Y = 15，所以 Y / X = 3 / 2。
+            </div>
+          </article>
+
+          <article class="practice-card">
+            <div class="practice-main">
+              <h2>练习 3：用笔独立算</h2>
+              <p>已知 5a + 7b + c = 63，2a + 8b + 3c = 72，求</p>
+              <p class="practice-target">
+                <span class="fraction"><span>2b + c</span><span>a + b</span></span>
+              </p>
+            </div>
+            <button type="button" data-toggle-answer="practice-3">看答案</button>
+            <div id="practice-3" class="practice-answer" hidden>
+              设 X = a + b，Y = 2b + c。原条件变成 5X + Y = 63，2X + 3Y = 72。
+              解得 X = 9，Y = 18，所以 Y / X = 2。
+            </div>
+          </article>
+
+          <article class="practice-card">
+            <div class="practice-main">
+              <h2>练习 4：用笔独立算</h2>
+              <p>已知 5a + 17b + 2c = 75，2a + 9b + 3c = 85，求</p>
+              <p class="practice-target">
+                <span class="fraction"><span>b + c</span><span>a + 3b</span></span>
+              </p>
+            </div>
+            <button type="button" data-toggle-answer="practice-4">看答案</button>
+            <div id="practice-4" class="practice-answer" hidden>
+              设 X = a + 3b，Y = b + c。原条件变成 5X + 2Y = 75，2X + 3Y = 85。
+              解得 X = 5，Y = 25，所以 Y / X = 5。
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="main.js"></script>
+  </body>
+</html>
