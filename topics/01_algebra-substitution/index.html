@@ -27,10 +27,10 @@
         <div class="idea-box">
           <p class="section-label">先看目标</p>
           <div class="block-row">
-            <span class="math-block blue">X = a + 2b</span>
-            <span class="math-block red">Y = 3b + c</span>
+            <span class="math-block blue">X = 3b + <span class="var var-c">c</span></span>
+            <span class="math-block red">Y = <span class="var var-a">a</span> + 2b</span>
           </div>
-          <p>题目要求的就是 <strong>Y / X</strong>。</p>
+          <p>题目要求的就是 <strong>X / Y</strong>。</p>
         </div>
       </section>
 
@@ -43,15 +43,15 @@
               <p>用 X 和 Y 拼出 2a + 13b + 3c。</p>
             </div>
           </div>
-          <div class="target-line">目标：2a + 13b + 3c = 90</div>
+          <div class="target-line">目标：2<span class="var var-a">a</span> + 13b + 3<span class="var var-c">c</span> = 90</div>
           <div class="builder" data-builder="first">
             <div class="controls">
-              <button type="button" data-action="minus-x">- X</button>
+              <button type="button" data-action="minus-x"><span class="btn-op">− X</span><span class="btn-def">3b + <span class="var var-c">c</span></span></button>
               <span class="count-pill"><span data-count="x">0</span> 个 X</span>
-              <button type="button" data-action="plus-x">+ X</button>
-              <button type="button" data-action="minus-y">- Y</button>
+              <button type="button" data-action="plus-x"><span class="btn-op">+ X</span><span class="btn-def">3b + <span class="var var-c">c</span></span></button>
+              <button type="button" data-action="minus-y"><span class="btn-op">− Y</span><span class="btn-def"><span class="var var-a">a</span> + 2b</span></button>
               <span class="count-pill"><span data-count="y">0</span> 个 Y</span>
-              <button type="button" data-action="plus-y">+ Y</button>
+              <button type="button" data-action="plus-y"><span class="btn-op">+ Y</span><span class="btn-def"><span class="var var-a">a</span> + 2b</span></button>
             </div>
             <div class="expanded" data-expanded></div>
             <div class="match-status" data-status></div>
@@ -66,15 +66,15 @@
               <p>用 X 和 Y 拼出 3a + 9b + c。</p>
             </div>
           </div>
-          <div class="target-line">目标：3a + 9b + c = 72</div>
+          <div class="target-line">目标：3<span class="var var-a">a</span> + 9b + <span class="var var-c">c</span> = 72</div>
           <div class="builder" data-builder="second">
             <div class="controls">
-              <button type="button" data-action="minus-x">- X</button>
+              <button type="button" data-action="minus-x"><span class="btn-op">− X</span><span class="btn-def">3b + <span class="var var-c">c</span></span></button>
               <span class="count-pill"><span data-count="x">0</span> 个 X</span>
-              <button type="button" data-action="plus-x">+ X</button>
-              <button type="button" data-action="minus-y">- Y</button>
+              <button type="button" data-action="plus-x"><span class="btn-op">+ X</span><span class="btn-def">3b + <span class="var var-c">c</span></span></button>
+              <button type="button" data-action="minus-y"><span class="btn-op">− Y</span><span class="btn-def"><span class="var var-a">a</span> + 2b</span></button>
               <span class="count-pill"><span data-count="y">0</span> 个 Y</span>
-              <button type="button" data-action="plus-y">+ Y</button>
+              <button type="button" data-action="plus-y"><span class="btn-op">+ Y</span><span class="btn-def"><span class="var var-a">a</span> + 2b</span></button>
             </div>
             <div class="expanded" data-expanded></div>
             <div class="match-status" data-status></div>

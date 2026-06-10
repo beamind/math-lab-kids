@@ -1,6 +1,6 @@
 const blocks = {
-  x: { a: 1, b: 2, c: 0, text: "a + 2b" },
-  y: { a: 0, b: 3, c: 1, text: "3b + c" },
+  x: { a: 0, b: 3, c: 1, text: "3b + c", html: '3b + <span class="var var-c">c</span>' },
+  y: { a: 1, b: 2, c: 0, text: "a + 2b", html: '<span class="var var-a">a</span> + 2b' },
 };
 
 const builders = {
@@ -160,6 +160,15 @@ function addTerms(parts) {
   return terms.length ? terms.join(" + ") : "0";
 }
 
+// 给 a、c 两个“整体标记”上色，b 保持原色，方便把目标和展开式对应起来。
+function addTermsColored(parts) {
+  const terms = [];
+  if (parts.a) terms.push(`<span class="var var-a">${parts.a === 1 ? "a" : `${parts.a}a`}</span>`);
+  if (parts.b) terms.push(parts.b === 1 ? "b" : `${parts.b}b`);
+  if (parts.c) terms.push(`<span class="var var-c">${parts.c === 1 ? "c" : `${parts.c}c`}</span>`);
+  return terms.length ? terms.join(" + ") : "0";
+}
+
 function expandWithBlocks(state, xBlock, yBlock) {
   return {
     a: state.x * xBlock.a + state.y * yBlock.a,
@@ -194,9 +203,9 @@ function renderBuilder(name, root) {
   root.querySelector("[data-expanded]").innerHTML = `
     <strong>${blockExpression(builder)}</strong>
     <br>
-    = ${builder.x}(${blocks.x.text}) + ${builder.y}(${blocks.y.text})
+    = ${builder.x}(${blocks.x.html}) + ${builder.y}(${blocks.y.html})
     <br>
-    = <strong>${addTerms(expanded)}</strong>
+    = <strong>${addTermsColored(expanded)}</strong>
   `;
 
   const status = root.querySelector("[data-status]");
@@ -207,7 +216,7 @@ function renderBuilder(name, root) {
   } else if (builder.x === 0 && builder.y === 0) {
     status.textContent = "先试着加几个 X 或 Y。";
   } else {
-    status.textContent = `还没拼到目标，现在是 ${addTerms(expanded)}。`;
+    status.innerHTML = `还没拼到目标，现在是 ${addTermsColored(expanded)}。`;
     status.classList.add("warning");
   }
 }
@@ -224,9 +233,9 @@ function renderReducedEquations() {
   }
 
   reducedEquations.innerHTML = `
-    <div>第一条线索：2X + 3Y = 90</div>
-    <div>第二条线索：3X + Y = 72</div>
-    <div>现在题目变成：解这个二元一次方程组，再求 Y / X。</div>
+    <div>第一条线索：3X + 2Y = 90</div>
+    <div>第二条线索：X + 3Y = 72</div>
+    <div>现在题目变成：解这个二元一次方程组，再求 X / Y。</div>
   `;
 }
 
@@ -327,8 +336,9 @@ function renderAllPracticeBuilders() {
 
 builderEls.forEach((root) => {
   root.addEventListener("click", (event) => {
-    const action = event.target.dataset.action;
-    if (!action) return;
+    const button = event.target.closest("[data-action]");
+    if (!button) return;
+    const action = button.dataset.action;
 
     const builder = builders[root.dataset.builder];
     if (action === "plus-x") builder.x = Math.min(builder.x + 1, 9);
@@ -363,11 +373,11 @@ practiceList.addEventListener("click", (event) => {
 
 solveButton.addEventListener("click", () => {
   solutionSteps.innerHTML = `
-    <div class="solution-line">方程组：2X + 3Y = 90，3X + Y = 72</div>
-    <div class="solution-line">把第二个方程乘以 3：9X + 3Y = 216</div>
-    <div class="solution-line">再减去第一个方程：7X = 126，所以 X = 18</div>
-    <div class="solution-line">把 X = 18 代回 3X + Y = 72：54 + Y = 72，所以 Y = 18</div>
-    <div class="answer-line">因此 Y / X = 18 / 18 = 1</div>
+    <div class="solution-line">方程组：3X + 2Y = 90，X + 3Y = 72</div>
+    <div class="solution-line">把第二个方程乘以 3：3X + 9Y = 216</div>
+    <div class="solution-line">再减去第一个方程：7Y = 126，所以 Y = 18</div>
+    <div class="solution-line">把 Y = 18 代回 X + 3Y = 72：X + 54 = 72，所以 X = 18</div>
+    <div class="answer-line">因此 X / Y = 18 / 18 = 1</div>
   `;
 });
 

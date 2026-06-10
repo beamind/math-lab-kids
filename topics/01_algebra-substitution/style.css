@@ -98,6 +98,23 @@
   background: #b44747;
 }
 
+/* a、c 两个“整体标记”用颜色凸显：c 呼应蓝盒子 X，a 呼应红盒子 Y */
+.var {
+  padding: 0 5px;
+  border-radius: 5px;
+  font-weight: 900;
+}
+
+.var-a {
+  background: #ffe3c2;
+  color: #b3520c;
+}
+
+.var-c {
+  background: #cdeee4;
+  color: #0c6b58;
+}
+
 .workspace {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -173,6 +190,25 @@
 .controls button:hover,
 .primary-action:hover {
   background: var(--accent-strong);
+}
+
+.controls button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  line-height: 1.2;
+}
+
+.btn-op {
+  font-size: 15px;
+}
+
+.btn-def {
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .controls button:disabled,
