@@ -1,0 +1,353 @@
+/* ---- 布局基元：与专题 01 一致，使本专题独立成页 ---- */
+.lab-shell {
+  width: min(1160px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.lab-header {
+  max-width: 880px;
+  margin-bottom: 22px;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.problem-panel,
+.proof-panel,
+.tree-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.problem-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(240px, 0.6fr);
+  gap: 18px;
+  padding: 24px;
+  margin-bottom: 16px;
+}
+
+.proof-panel,
+.tree-panel {
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.section-label {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.formula {
+  margin-bottom: 14px;
+  font-size: clamp(20px, 3.4vw, 30px);
+  line-height: 1.4;
+}
+
+.idea-box {
+  padding: 18px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+
+.mystery-line {
+  margin-bottom: 8px;
+  font-size: 17px;
+}
+
+.mystery-line strong,
+.mystery-total strong {
+  display: inline-block;
+  min-width: 28px;
+  padding: 0 6px;
+  border-radius: 6px;
+  background: #fff;
+  color: var(--accent-strong);
+  text-align: center;
+}
+
+.mystery-total {
+  margin: 12px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(31, 92, 89, 0.35);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.step-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.step-head h2 {
+  margin-bottom: 6px;
+  font-size: 23px;
+}
+
+.step-head p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.step-number {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+/* ---- 第一段：反证法 ---- */
+.proof-lead,
+.proof-mid {
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+
+.proof-lead strong,
+.proof-mid strong {
+  color: var(--accent-strong);
+}
+
+.combo-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.combo-table th,
+.combo-table td {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.combo-table thead th {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 800;
+}
+
+.combo-table tbody tr:nth-child(even) {
+  background: #fbfcfa;
+}
+
+.combo-cell {
+  font-weight: 800;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.combo-table-27 tbody tr.impossible {
+  color: #aab2ad;
+}
+
+.overflow-area {
+  margin-top: 16px;
+  padding: 16px 18px;
+  border-radius: 8px;
+  background: #fff3e6;
+  line-height: 1.8;
+}
+
+.overflow-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.overflow-chip {
+  display: inline-flex;
+  padding: 6px 12px;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid var(--warn);
+  color: var(--warn);
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: line-through;
+  animation: dropIn 0.45s ease both;
+}
+
+.overflow-chip:nth-child(2) { animation-delay: 0.04s; }
+.overflow-chip:nth-child(3) { animation-delay: 0.08s; }
+.overflow-chip:nth-child(4) { animation-delay: 0.12s; }
+.overflow-chip:nth-child(5) { animation-delay: 0.16s; }
+.overflow-chip:nth-child(6) { animation-delay: 0.20s; }
+.overflow-chip:nth-child(7) { animation-delay: 0.24s; }
+.overflow-chip:nth-child(8) { animation-delay: 0.28s; }
+.overflow-chip:nth-child(9) { animation-delay: 0.32s; }
+.overflow-chip:nth-child(10) { animation-delay: 0.36s; }
+.overflow-chip:nth-child(11) { animation-delay: 0.40s; }
+
+@keyframes dropIn {
+  from { opacity: 0; transform: translateY(-14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.proof-conclusion {
+  margin: 0;
+}
+
+.proof-conclusion strong {
+  color: var(--warn);
+}
+
+/* ---- 过渡句 ---- */
+.bridge-note {
+  margin: 0 0 16px;
+  padding: 16px 18px;
+  border-left: 4px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  background: var(--accent-soft);
+  line-height: 1.8;
+}
+
+.bridge-note strong {
+  color: var(--accent-strong);
+}
+
+/* ---- 第二段：完整决策树 ---- */
+.tree {
+  margin-bottom: 22px;
+  padding: 16px 18px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fbfcfa;
+  overflow-x: auto;
+}
+
+.tnode-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 0;
+  flex-wrap: wrap;
+}
+
+.tweigh {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.tbranches {
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 2px solid var(--line);
+}
+
+.tedge {
+  display: inline-flex;
+  flex: 0 0 auto;
+  min-width: 48px;
+  justify-content: center;
+  padding: 2px 9px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+  color: #fff;
+}
+
+.tedge-左 { background: var(--accent); }
+.tedge-平 { background: var(--muted); }
+.tedge-右 { background: var(--warn); }
+
+.tleaf {
+  font-weight: 800;
+  color: var(--accent-strong);
+}
+
+.timpossible {
+  color: #9aa39e;
+  font-weight: 700;
+  text-decoration: line-through;
+}
+
+.table-caption {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+/* ---- 第三部分：练习题 ---- */
+.practice-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.powers-table {
+  max-width: 520px;
+}
+
+.powers-table th:first-child,
+.powers-table td:first-child {
+  width: 130px;
+}
+
+.practice-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.practice-card {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.practice-tag {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--accent-strong);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.practice-question {
+  margin: 0 0 12px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.practice-answer {
+  margin-top: 12px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 700;
+  line-height: 1.9;
+}
+
+@media (max-width: 860px) {
+  .problem-panel {
+    grid-template-columns: 1fr;
+  }
+}

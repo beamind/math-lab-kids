@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>找次品天平台</title>
+    <link rel="stylesheet" href="../../assets/styles/base.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <a class="back-link" href="../../index.html">返回专题列表</a>
+        <p class="eyebrow">推理与信息专题</p>
+        <h1>找次品天平台</h1>
+      </header>
+
+      <section class="problem-panel" aria-label="原题">
+        <div>
+          <p class="section-label">原题</p>
+          <p class="formula">10 个零件，其中 1 个是次品。</p>
+          <p class="formula">
+            次品不知轻重。用天平至少称几次，<br>
+            一定能找到它、并确定它偏重还是偏轻？
+          </p>
+        </div>
+        <div class="idea-box">
+          <p class="section-label">要分辨多少种情况</p>
+          <p class="mystery-line">是哪一个？<strong>10</strong> 种</p>
+          <p class="mystery-line">偏重还是偏轻？<strong>2</strong> 种</p>
+          <p class="mystery-total">合起来 <strong>20</strong> 种情况要分辨。</p>
+        </div>
+      </section>
+
+      <!-- 第一段：反证法 -->
+      <section class="proof-panel">
+        <div class="step-head">
+          <span class="step-number">1</span>
+          <div>
+            <h2>先证明：称 2 次做不到</h2>
+            <p>假设你有一套妙招，只称 2 次就能找出次品、还能说清它偏重还是偏轻。我们看看这个假设站不站得住。</p>
+          </div>
+        </div>
+
+        <p class="proof-lead">
+          天平一次只有 3 种结果（左沉、平、右沉）。所以不管你两次分别称什么，称 2 次连起来最多只有 3 × 3 =
+          <strong>9</strong> 种结果。每种结果，你的方案只能据它说出一个结论——下面这张表就把这 9 种结果各配一个结论（举例）：
+        </p>
+
+        <table class="combo-table">
+          <thead>
+            <tr><th>称两次的结果</th><th>这串结果代表哪种情况（举例）</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="combo-cell">左左</td><td>1 号偏轻</td></tr>
+            <tr><td class="combo-cell">左平</td><td>1 号偏重</td></tr>
+            <tr><td class="combo-cell">左右</td><td>2 号偏轻</td></tr>
+            <tr><td class="combo-cell">平左</td><td>2 号偏重</td></tr>
+            <tr><td class="combo-cell">平平</td><td>3 号偏轻</td></tr>
+            <tr><td class="combo-cell">平右</td><td>3 号偏重</td></tr>
+            <tr><td class="combo-cell">右左</td><td>4 号偏轻</td></tr>
+            <tr><td class="combo-cell">右平</td><td>4 号偏重</td></tr>
+            <tr><td class="combo-cell">右右</td><td>5 号偏轻</td></tr>
+          </tbody>
+        </table>
+
+        <p class="proof-mid">
+          这张表只有 <strong>9</strong> 行，因为结果就这 9 种。可要分辨的情况有 <strong>20</strong> 种，
+          填到“5 号偏轻”就把 9 行用光了。下面这 11 种情况，已经没有结果能对应它们了：
+        </p>
+
+        <div class="overflow-area">
+          <div class="overflow-chips">
+            <span class="overflow-chip">5 号偏重</span>
+            <span class="overflow-chip">6 号偏轻</span>
+            <span class="overflow-chip">6 号偏重</span>
+            <span class="overflow-chip">7 号偏轻</span>
+            <span class="overflow-chip">7 号偏重</span>
+            <span class="overflow-chip">8 号偏轻</span>
+            <span class="overflow-chip">8 号偏重</span>
+            <span class="overflow-chip">9 号偏轻</span>
+            <span class="overflow-chip">9 号偏重</span>
+            <span class="overflow-chip">10 号偏轻</span>
+            <span class="overflow-chip">10 号偏重</span>
+          </div>
+          <p class="proof-conclusion">
+            天平没有第 10、第 11 种结果留给它们。谁要硬挤进已经有结论的那一行，就意味着两种情况称出来一模一样、分不开。
+            <strong>所以“2 次能行”的假设不成立——2 次做不到。</strong>
+          </p>
+        </div>
+      </section>
+
+      <p class="bridge-note">
+        那称 3 次呢？3 × 3 × 3 = <strong>27</strong> 种结果。27 ≥ 20，结果够多了，<strong>有可能</strong>让每种情况各占一个。
+        但“有可能”还不算数——得真给出一套照着做就对的称法。这就是下面的决策树。
+      </p>
+
+      <!-- 第二段：完整决策树 + 对照表 -->
+      <section class="tree-panel">
+        <div class="step-head">
+          <span class="step-number">2</span>
+          <div>
+            <h2>3 次怎么做到：完整决策树</h2>
+            <p>从第 1 次开始，按天平的结果顺着对应的分支往下走，到底就知道是几号、偏重还是偏轻。“好球”＝前面已经确定没问题的零件，可当标准砝码用。</p>
+          </div>
+        </div>
+
+        <div id="decisionTree" class="tree" aria-label="决策树"></div>
+
+        <p class="table-caption">
+          把全部 27 种结果摊平成一张对照表：20 种对应真实缺陷，7 种“不会出现”，正好是 27 比 20 多出来的。
+        </p>
+        <table class="combo-table combo-table-27" id="comboTable27">
+          <thead>
+            <tr><th>三次结果</th><th>对应缺陷</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+
+      <!-- 第三部分：练习题 -->
+      <section class="practice-panel">
+        <div class="step-head">
+          <span class="step-number">3</span>
+          <div>
+            <h2>练习题</h2>
+            <p>用前面的道理做几道。核心就两步：① 情况数 ＝ 零件数 × 2；② 找最小的 k，让 3 的 k 次方 ≥ 情况数，k 就是最少称量次数。数大了不用硬算，查下面这张表。</p>
+          </div>
+        </div>
+
+        <p class="table-caption">3 的乘方速查表（称 k 次最多能分出多少种结果）</p>
+        <table class="combo-table powers-table" id="powersTable">
+          <thead>
+            <tr><th>称的次数 k</th><th>3 的 k 次方 ＝ 结果种数</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="practice-list" id="practiceList"></div>
+      </section>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
