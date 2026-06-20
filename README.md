@@ -6,6 +6,7 @@
 
 - [整体代换积木机](topics/01_algebra-substitution/)
 - [找次品天平台](topics/02_find-defective/)
+- [一笔画擂台](topics/03_one-stroke/)
 
 ## 项目原则
 

@@ -1,0 +1,335 @@
+/* ---- 布局基元：与专题 01/02 一致，使本专题独立成页 ---- */
+.lab-shell {
+  width: min(1160px, calc(100vw - 32px));
+  margin: 0 auto;
+  padding: 32px 0 56px;
+}
+
+.lab-header {
+  max-width: 880px;
+  margin-bottom: 22px;
+}
+
+.back-link {
+  display: inline-flex;
+  margin-bottom: 18px;
+  color: var(--accent-strong);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.problem-panel,
+.step-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+
+.problem-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(240px, 0.8fr);
+  gap: 20px;
+  padding: 24px;
+  margin-bottom: 16px;
+  align-items: center;
+}
+
+.step-panel {
+  padding: 22px;
+  margin-bottom: 16px;
+}
+
+.section-label {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.formula {
+  margin-bottom: 12px;
+  font-size: clamp(18px, 2.6vw, 24px);
+  line-height: 1.5;
+}
+
+.idea-box {
+  padding: 18px;
+  border-radius: 8px;
+  background: var(--accent-soft);
+}
+
+.step-head {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+  margin-bottom: 18px;
+}
+
+.step-head h2 {
+  margin-bottom: 6px;
+  font-size: 23px;
+}
+
+.step-head p {
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.step-number {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+
+/* ---- 图形与两栏 ---- */
+.two-col {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+
+.figure-box {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+}
+
+.figure-cap {
+  margin-top: 8px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.court {
+  display: block;
+  width: 100%;
+  max-width: 320px;
+  height: auto;
+  margin: 0 auto;
+}
+
+.court-edge {
+  fill: none;
+  stroke: #26302e;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.dashed-arc {
+  fill: none;
+  stroke: #9fb4ae;
+  stroke-width: 2.6;
+  stroke-dasharray: 7 7;
+  stroke-linecap: round;
+}
+
+.odd-dot {
+  fill: #d83a5e;
+  stroke: #fff;
+  stroke-width: 2.5;
+}
+
+.odd-dot.dim {
+  fill: #c2cecb;
+}
+
+.endpt circle {
+  stroke: #fff;
+  stroke-width: 2.5;
+}
+
+.endpt.start circle {
+  fill: #0a9c6f;
+}
+
+.endpt.end circle {
+  fill: #c026d3;
+}
+
+.endpt text {
+  fill: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+
+/* ---- 逐笔控制 ---- */
+.stroke-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.stroke-btn {
+  padding: 7px 14px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.stroke-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.stroke-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+
+.legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.legend-swatch {
+  display: inline-block;
+  width: 20px;
+  height: 7px;
+  border-radius: 4px;
+}
+
+.stroke-desc {
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.7;
+  min-height: 3.2em;
+}
+
+.hint {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.answer-blank {
+  margin-top: 14px;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.answer-blank strong {
+  color: var(--accent-strong);
+  font-size: 22px;
+}
+
+/* ---- 规则与结论 ---- */
+.rule-list {
+  margin: 0;
+  padding-left: 20px;
+  display: grid;
+  gap: 8px;
+  line-height: 1.65;
+}
+
+.rule-list.big li {
+  font-size: 16px;
+}
+
+.rule-list strong,
+.conclusion-line strong {
+  color: var(--accent-strong);
+}
+
+.conclusion-line {
+  margin: 14px 0 0;
+  padding-top: 12px;
+  border-top: 1px dashed rgba(31, 92, 89, 0.35);
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.table-caption {
+  margin: 18px 0 10px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* ---- 例子卡片 ---- */
+.examples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.example-card {
+  width: 150px;
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+  text-align: center;
+}
+
+.example-card.highlight {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+
+.example-card figcaption {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.example-card strong {
+  color: var(--accent-strong);
+}
+
+.mini {
+  display: block;
+  width: 110px;
+  height: 110px;
+  margin: 0 auto 8px;
+}
+
+.mini-court {
+  width: 120px;
+  max-width: 120px;
+}
+
+.mini-edge {
+  fill: none;
+  stroke: #26302e;
+  stroke-width: 3.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.mini-odd {
+  fill: #d83a5e;
+  stroke: #fff;
+  stroke-width: 2;
+}
+
+@media (max-width: 760px) {
+  .problem-panel,
+  .two-col {
+    grid-template-columns: 1fr;
+  }
+}

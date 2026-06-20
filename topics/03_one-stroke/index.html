@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>一笔画擂台 · 半个篮球场</title>
+    <link rel="stylesheet" href="../../assets/styles/base.css">
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <main class="lab-shell">
+      <header class="lab-header">
+        <a class="back-link" href="../../index.html">返回专题列表</a>
+        <p class="eyebrow">图形与推理专题</p>
+        <h1>一笔画擂台 · 半个篮球场</h1>
+      </header>
+
+      <section class="problem-panel" aria-label="原题">
+        <div>
+          <p class="section-label">原题</p>
+          <p class="formula">如图是半个篮球场的示意图。图中的<strong>实线</strong>部分，至少需要几笔，才能<strong>不重复</strong>地一笔一笔画成？</p>
+          <p class="hint">虚线是罚球圈靠篮筐的那半个圆，不用画。</p>
+          <p class="answer-blank">答案：<strong>4</strong> 笔</p>
+        </div>
+        <div class="figure-box">
+          <div id="svgProblem"></div>
+          <p class="figure-cap">实线要画，虚线不画</p>
+        </div>
+      </section>
+
+      <!-- 第 1 段：判断要几笔 -->
+      <section class="step-panel">
+        <div class="step-head">
+          <span class="step-number">1</span>
+          <div>
+            <h2>先看要几笔：数“奇点”</h2>
+            <p>一笔画的关键，是看图里有多少个<strong>奇点</strong>——也就是“引出奇数条线”的点，在这张图里都是 3 条线交汇的三岔口。</p>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="figure-box">
+            <div id="svgOdd"></div>
+            <p class="figure-cap">红点就是奇点，一共 8 个</p>
+          </div>
+          <div class="idea-box">
+            <p class="section-label">为什么数奇点</p>
+            <ul class="rule-list">
+              <li><strong>偶点</strong>（连 2、4 条线）：笔可以一进一出，顺势穿过。</li>
+              <li><strong>奇点</strong>：总会多出一条线，只能当某一笔的<strong>起点或终点</strong>。</li>
+              <li>一笔最多“消化”2 个奇点（起点 + 终点）。所以有 <strong>2k</strong> 个奇点，就至少要 <strong>k</strong> 笔。</li>
+            </ul>
+            <p class="conclusion-line">这张图有 <strong>8</strong> 个奇点 → 至少 8 ÷ 2 = <strong>4</strong> 笔。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第 2 段：4 笔怎么画 -->
+      <section class="step-panel">
+        <div class="step-head">
+          <span class="step-number">2</span>
+          <div>
+            <h2>真的能 4 笔画完</h2>
+            <p>下面用四种颜色表示四笔。点按钮可以一笔一笔单独看，每一笔都从一个红色奇点起、到另一个奇点收。</p>
+          </div>
+        </div>
+        <div class="two-col">
+          <div class="figure-box">
+            <div id="svgStrokes"></div>
+          </div>
+          <div class="stroke-side">
+            <div class="stroke-controls" id="strokeControls">
+              <button type="button" class="stroke-btn active" data-stroke="0">全部</button>
+              <button type="button" class="stroke-btn" data-stroke="1">第 1 笔</button>
+              <button type="button" class="stroke-btn" data-stroke="2">第 2 笔</button>
+              <button type="button" class="stroke-btn" data-stroke="3">第 3 笔</button>
+              <button type="button" class="stroke-btn" data-stroke="4">第 4 笔</button>
+            </div>
+            <div class="stroke-legend" id="strokeLegend"></div>
+            <p class="stroke-desc" id="strokeDesc"></p>
+            <p class="hint">选中某一笔时，它的<strong>起点（青绿“起”）</strong>和<strong>终点（紫“终”）</strong>会高亮。8 个奇点正好两两配对成 4 笔的起点和终点，这就是“4 笔”的来历。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 第 3 段：一般性结论 -->
+      <section class="step-panel">
+        <div class="step-head">
+          <span class="step-number">3</span>
+          <div>
+            <h2>一般性结论</h2>
+            <p>任何由线条连成的<strong>连通</strong>图形，要几笔画成，只取决于奇点的个数。</p>
+          </div>
+        </div>
+        <ul class="rule-list big">
+          <li><strong>0 个奇点</strong>：能一笔画成，而且终点会回到起点（如三角形、圆、五角星）。</li>
+          <li><strong>2 个奇点</strong>：能一笔画成，但必须从一个奇点起笔、在另一个奇点收笔（如“日”字）。</li>
+          <li><strong>2k 个奇点（k ≥ 1）</strong>：最少要 <strong>k 笔</strong>。</li>
+          <li>奇点的个数<strong>一定是偶数</strong>：所有点的“线数”加起来 = 边数 × 2 是偶数，所以引出奇数条线的点必然成双成对。</li>
+        </ul>
+        <p class="table-caption">几个例子（红点是奇点，看奇点数 → 笔数）：</p>
+        <div class="examples" id="examples"></div>
+      </section>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
