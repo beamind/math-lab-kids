@@ -65,6 +65,12 @@ h1 {
   letter-spacing: 0;
 }
 
+/* 首页主标题保持一行 */
+.intro h1 {
+  white-space: nowrap;
+  font-size: clamp(20px, 5vw, 52px);
+}
+
 .intro-text {
   color: var(--muted);
   font-size: 18px;
