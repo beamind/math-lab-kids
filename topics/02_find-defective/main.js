@@ -2,9 +2,7 @@
   "use strict";
 
   // ============================================================
-  // 决策树（针对 10 个零件，这套方案已用程序验证：20 种缺陷全覆盖，最坏正好 3 次）
-  // 每个称量节点带 pans（真实球号，含当砝码的“好球”）和 weigh（给孩子看的说明）。
-  // 第三次的子节点要么是 {conclusion}，要么是 null（这种结果不会出现）。
+  // 决策树（10 个零件，已验证：20 种缺陷全覆盖，最坏正好 3 次）
   // ============================================================
   const TREE = {
     weigh: "1 2 3 ⚖ 4 5 6",
@@ -41,9 +39,8 @@
   };
 
   const ORDER = ["左", "平", "右"];
-  const DISP = { 左: "左沉", 平: "平衡", 右: "右沉" };
 
-  // 给定三次结果（如 "左平右"），顺着决策树查出结论；null 表示这种结果不会出现。
+  // 给定三次结果（如 "左平右"），顺着决策树查结论；null 表示不会出现。
   function conclusionFor(combo) {
     let node = TREE;
     for (let i = 0; i < combo.length; i++) {
@@ -53,50 +50,74 @@
     return node.conclusion || null;
   }
 
-  // 假设次品是 coin 号、偏 sign（"重"/"轻"），预测这次称量哪边沉。
+  // 只保留零件号，去掉“偏重/偏轻”。
+  function coinOnly(conclusion) {
+    return conclusion.replace(/偏[重轻]/, "");
+  }
+
+  // 预测一次称量哪边沉（coin 号、偏 sign："重"/"轻"）。
   function predictResult(left, right, coin, sign) {
     if (left.indexOf(coin) !== -1) return sign === "重" ? "左" : "右";
     if (right.indexOf(coin) !== -1) return sign === "重" ? "右" : "左";
     return "平";
   }
 
-  // 练习题：3 的乘方；最少称量次数 = 最小的 k 使 3^k ≥ 情况数(2n)。
-  // 题目里选的 n 都避开了边界值（4、13、40…），所以这个简单规则给出的就是真正能做到的最少次数。
+  // 速查/练习用：3 的乘方，以及 k 次最多能搞定多少个零件。
   function pow3(k) {
     let p = 1;
     for (let i = 0; i < k; i++) p *= 3;
     return p;
   }
-  function minWeighings(n) {
-    const cases = 2 * n;
+  function findMax(k) {
+    return (pow3(k) - 1) / 2; // 只找出（不分轻重）
+  }
+  function fullMax(k) {
+    return (pow3(k) - 3) / 2; // 要分轻重
+  }
+  function minWeigh(n, mustDir) {
     let k = 1;
-    while (pow3(k) < cases) k++;
+    while ((mustDir ? fullMax(k) : findMax(k)) < n) k++;
     return k;
   }
-  const PRACTICE_NS = [3, 10, 12, 30, 100, 300, 1000];
+
+  // 练习题（混合两种类型）。dir=true 表示要分轻重。
+  const PRACTICES = [
+    { n: 10, dir: true },
+    { n: 10, dir: false },
+    { n: 13, dir: true },
+    { n: 13, dir: false },
+    { n: 4, dir: true },
+    { n: 4, dir: false },
+    { n: 40, dir: false },
+    { n: 100, dir: true },
+    { n: 1000, dir: false },
+  ];
 
   if (typeof module !== "undefined" && module.exports) {
     module.exports = {
       TREE: TREE,
-      conclusionFor: conclusionFor,
-      predictResult: predictResult,
       ORDER: ORDER,
+      conclusionFor: conclusionFor,
+      coinOnly: coinOnly,
+      predictResult: predictResult,
       pow3: pow3,
-      minWeighings: minWeighings,
-      PRACTICE_NS: PRACTICE_NS,
+      findMax: findMax,
+      fullMax: fullMax,
+      minWeigh: minWeigh,
+      PRACTICES: PRACTICES,
     };
   }
   if (typeof document === "undefined") return;
 
   // ============================================================
-  // 完整决策树（递归画出，静态）
+  // 完整决策树（递归画出，静态）；findOnly=true 时叶子只显示零件号
   // ============================================================
-  function renderNode(node, depth, edge) {
-    const edgeHtml = edge ? '<span class="tedge tedge-' + edge + '">' + DISP[edge] + "</span>" : "";
+  function renderNode(node, depth, edge, findOnly) {
+    const edgeHtml = edge ? '<span class="tedge tedge-' + edge + '">' + ({ 左: "左沉", 平: "平衡", 右: "右沉" })[edge] + "</span>" : "";
 
     if (node && node.weigh) {
       let branches = "";
-      for (const r of ORDER) branches += renderNode(node.children[r], depth + 1, r);
+      for (const r of ORDER) branches += renderNode(node.children[r], depth + 1, r, findOnly);
       return (
         '<div class="tnode">' +
         '<div class="tnode-head">' +
@@ -110,23 +131,16 @@
 
     const isReal = node && node.conclusion;
     const leafCls = isReal ? "tleaf" : "tleaf timpossible";
-    const leafTxt = isReal ? node.conclusion : "不会出现";
-    return (
-      '<div class="tnode"><div class="tnode-head">' +
-      edgeHtml +
-      '<span class="' + leafCls + '">' + leafTxt + "</span>" +
-      "</div></div>"
-    );
+    const leafTxt = isReal ? (findOnly ? coinOnly(node.conclusion) : node.conclusion) : "不会出现";
+    return '<div class="tnode"><div class="tnode-head">' + edgeHtml + '<span class="' + leafCls + '">' + leafTxt + "</span></div></div>";
   }
 
-  function renderTree() {
-    document.querySelector("#decisionTree").innerHTML = renderNode(TREE, 0, null);
+  function renderTree(selector, findOnly) {
+    document.querySelector(selector).innerHTML = renderNode(TREE, 0, null, findOnly);
   }
 
-  // ============================================================
-  // 27 行对照表（静态）
-  // ============================================================
-  function buildTable() {
+  // 27 行对照表；findOnly=true 时只显示零件号
+  function buildTable(tbodySelector, findOnly) {
     let html = "";
     for (const a of ORDER) {
       for (const b of ORDER) {
@@ -134,45 +148,44 @@
           const combo = a + b + c;
           const concl = conclusionFor(combo);
           const impossible = concl === null;
-          html +=
-            '<tr class="' + (impossible ? "impossible" : "") + '">' +
-            '<td class="combo-cell">' + combo + "</td>" +
-            "<td>" + (impossible ? "—（不会出现）" : concl) + "</td>" +
-            "</tr>";
+          const text = impossible ? "—（不会出现）" : findOnly ? coinOnly(concl) : concl;
+          html += '<tr class="' + (impossible ? "impossible" : "") + '"><td class="combo-cell">' + combo + "</td><td>" + text + "</td></tr>";
         }
       }
     }
-    document.querySelector("#comboTable27 tbody").innerHTML = html;
+    document.querySelector(tbodySelector).innerHTML = html;
   }
 
   // ============================================================
-  // 第三部分：练习题
+  // 第四部分：速查表 + 练习题
   // ============================================================
-  function renderPowers() {
+  function renderRefTable() {
     let html = "";
     for (let k = 1; k <= 8; k++) {
-      html += '<tr><td class="combo-cell">' + k + "</td><td>3<sup>" + k + "</sup> = " + pow3(k) + "</td></tr>";
+      html += "<tr><td class=\"combo-cell\">" + k + "</td><td>" + pow3(k) + "</td><td>" + findMax(k) + "</td><td>" + fullMax(k) + "</td></tr>";
     }
-    document.querySelector("#powersTable tbody").innerHTML = html;
+    document.querySelector("#refTable tbody").innerHTML = html;
   }
 
   function renderPractices() {
-    const html = PRACTICE_NS.map(function (n, i) {
-      const cases = 2 * n;
-      const k = minWeighings(n);
+    const html = PRACTICES.map(function (p, i) {
+      const k = minWeigh(p.n, p.dir);
+      const maxK = p.dir ? fullMax(k) : findMax(k);
+      const maxPrev = p.dir ? fullMax(k - 1) : findMax(k - 1);
+      const col = p.dir ? "要分轻重" : "只找出";
       const id = "ans-" + (i + 1);
+      const ask = p.dir
+        ? "至少称几次，才能找出它、并判断它偏重还是偏轻？"
+        : "至少称几次，才能找出它（不用管轻重）？";
       return (
         '<article class="practice-card">' +
+        '<span class="practice-type ' + (p.dir ? "dir" : "find") + '">' + col + "</span>" +
         '<span class="practice-tag">第 ' + (i + 1) + " 题</span>" +
-        '<p class="practice-question">' +
-        n +
-        " 个零件，其中 1 个是次品，不知轻重。至少称几次，才能找出它、并判断它偏重还是偏轻？</p>" +
+        '<p class="practice-question">' + p.n + " 个零件，其中 1 个是次品，不知轻重。" + ask + "</p>" +
         '<button type="button" class="ghost-action" data-answer="' + id + '">看答案</button>' +
         '<div class="practice-answer" id="' + id + '" hidden>' +
-        "情况数 = " + n + " × 2 = <strong>" + cases + "</strong>。<br>" +
-        "查表：3<sup>" + (k - 1) + "</sup> = " + pow3(k - 1) + " 还不够（&lt; " + cases +
-        "），3<sup>" + k + "</sup> = " + pow3(k) + " 够了（≥ " + cases + "）。<br>" +
-        "所以最少称 <strong>" + k + " 次</strong>。" +
+        "查“" + col + "·最多”那列：" + (k - 1) + " 次最多 " + maxPrev + " 个（不够），" + k + " 次最多 " + maxK +
+        " 个（" + p.n + " ≤ " + maxK + "，够）。<br>所以最少称 <strong>" + k + " 次</strong>。" +
         "</div></article>"
       );
     }).join("");
@@ -188,8 +201,11 @@
     btn.textContent = show ? "收起答案" : "看答案";
   });
 
-  renderTree();
-  buildTable();
-  renderPowers();
+  // ---- 启动 ----
+  renderTree("#decisionTree", false);
+  buildTable("#comboTable27 tbody", false);
+  renderTree("#decisionTreeFind", true);
+  buildTable("#comboTableFind tbody", true);
+  renderRefTable();
   renderPractices();
 })();

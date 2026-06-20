@@ -96,11 +96,12 @@
       </p>
 
       <!-- 第二段：完整决策树 + 对照表 -->
+      <!-- 第二部分：完整决策树（找出 + 判断轻重） -->
       <section class="tree-panel">
         <div class="step-head">
           <span class="step-number">2</span>
           <div>
-            <h2>3 次怎么做到：完整决策树</h2>
+            <h2>情况一：找出次品 + 判断轻重</h2>
             <p>从第 1 次开始，按天平的结果顺着对应的分支往下走，到底就知道是几号、偏重还是偏轻。“好球”＝前面已经确定没问题的零件，可当标准砝码用。</p>
           </div>
         </div>
@@ -118,23 +119,76 @@
         </table>
       </section>
 
-      <!-- 第三部分：练习题 -->
-      <section class="practice-panel">
+      <!-- 第三部分：只找次品，不分轻重 -->
+      <section class="tree-panel">
         <div class="step-head">
           <span class="step-number">3</span>
           <div>
-            <h2>练习题</h2>
-            <p>用前面的道理做几道。核心就两步：① 情况数 ＝ 零件数 × 2；② 找最小的 k，让 3 的 k 次方 ≥ 情况数，k 就是最少称量次数。数大了不用硬算，查下面这张表。</p>
+            <h2>情况二：只找出次品，不分轻重</h2>
+            <p>这次只问“是哪一个”，不用说轻还是重。要分辨的答案只有 10 种（10 个零件）。2 次还是只有 9 种结果，9 &lt; 10，仍然不够；所以还是至少 3 次——这次没省到。</p>
           </div>
         </div>
 
-        <p class="table-caption">3 的乘方速查表（称 k 次最多能分出多少种结果）</p>
-        <table class="combo-table powers-table" id="powersTable">
+        <p class="bridge-note">
+          称法可以和上一节<strong>完全一样</strong>，只是看结果时只读零件号、不读轻重。注意：表里同一个零件会出现两次（它偏重、偏轻各对应一种结果），但我们都只回答“几号”。
+        </p>
+
+        <div id="decisionTreeFind" class="tree" aria-label="只找次品的决策树"></div>
+
+        <p class="table-caption">27 种结果对照表（只报零件号）：20 种里每个零件出现两次，7 种“不会出现”。</p>
+        <table class="combo-table combo-table-27" id="comboTableFind">
           <thead>
-            <tr><th>称的次数 k</th><th>3 的 k 次方 ＝ 结果种数</th></tr>
+            <tr><th>三次结果</th><th>对应零件</th></tr>
           </thead>
           <tbody></tbody>
         </table>
+
+        <p class="proof-mid">
+          那什么时候“不分轻重”能省一次？比如 <strong>13 个</strong>零件：只找出只要 3 次，要分轻重得 4 次！下面练习里试试。
+        </p>
+      </section>
+
+      <!-- 第四部分：练习题 -->
+      <section class="practice-panel">
+        <div class="step-head">
+          <span class="step-number">4</span>
+          <div>
+            <h2>练习题</h2>
+            <p>下面的题混了两种：【要分轻重】和【只找出】。数大了不用算，直接查这张速查表——看哪一行的“最多个数”第一次 ≥ 题目里的零件数，那一行的 k 就是答案。</p>
+          </div>
+        </div>
+
+        <p class="table-caption">速查表：称 k 次最多能搞定多少个零件</p>
+        <table class="combo-table ref-table" id="refTable">
+          <thead>
+            <tr>
+              <th>称 k 次</th>
+              <th>结果数 3<sup>k</sup></th>
+              <th>只找出·最多<br><span class="th-formula">(3<sup>k</sup> − 1) / 2</span></th>
+              <th>要分轻重·最多<br><span class="th-formula">(3<sup>k</sup> − 3) / 2</span></th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+
+        <div class="formula-note">
+          <h3>为什么一个减 3、一个减 1？</h3>
+          <p>
+            先说为什么大约是“一半”（÷2）：同一个零件，<strong>偏重</strong>和<strong>偏轻</strong>会让天平往相反方向歪，
+            给出两串左右镜像的结果。所以每个零件要占掉<strong>一对</strong>结果——n 个零件就要 2n 串，能认的零件大约是结果总数 3<sup>k</sup> 的一半。
+          </p>
+          <p>
+            再说为什么要“减”：3<sup>k</sup> 串结果里，有一种是“三次全平”，它表示次品<strong>从头到尾没上过秤</strong>。
+            这样的零件你能定位（全平就是它），却因为它没让天平歪过，<strong>说不出是轻还是重</strong>；
+            再加上天平那条铁规矩——<strong>每次两边数量必须相等</strong>——又会卡掉一点能用的结果。
+          </p>
+          <p>把这些算进去：</p>
+          <ul>
+            <li><strong>要分轻重</strong>：能“既定位、又判断轻重”的零件，最多 <strong>(3<sup>k</sup> − 3) / 2</strong> 个。</li>
+            <li><strong>只找出</strong>：那颗“全程没上秤、只能靠全平认出来”的零件也能算上（不管它轻重），于是多 1 个 → <strong>(3<sup>k</sup> − 3)/2 + 1 = (3<sup>k</sup> − 1) / 2</strong>。</li>
+          </ul>
+          <p>两个公式就差这 1 个——那颗<strong>找得到、却说不清轻重</strong>的零件。这也正是 12 和 13 的差别。</p>
+        </div>
 
         <div class="practice-list" id="practiceList"></div>
       </section>

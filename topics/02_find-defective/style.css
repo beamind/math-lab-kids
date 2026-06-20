@@ -300,13 +300,28 @@
   margin-bottom: 16px;
 }
 
-.powers-table {
-  max-width: 520px;
+.ref-table th:first-child,
+.ref-table td:first-child {
+  width: 110px;
 }
 
-.powers-table th:first-child,
-.powers-table td:first-child {
-  width: 130px;
+.practice-type {
+  display: inline-block;
+  margin: 0 8px 8px 0;
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.practice-type.dir {
+  background: #fbe3e3;
+  color: #9c3a3a;
+}
+
+.practice-type.find {
+  background: #dceeea;
+  color: var(--accent-strong);
 }
 
 .practice-list {
@@ -344,6 +359,48 @@
   color: var(--accent-strong);
   font-weight: 700;
   line-height: 1.9;
+}
+
+.th-formula {
+  display: inline-block;
+  margin-top: 2px;
+  font-size: 12px;
+  font-weight: 700;
+  opacity: 0.8;
+}
+
+.formula-note {
+  margin: 16px 0 0;
+  padding: 16px 18px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: #fbfcfa;
+  line-height: 1.85;
+}
+
+.formula-note h3 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: var(--accent-strong);
+}
+
+.formula-note p {
+  margin: 0 0 10px;
+}
+
+.formula-note ul {
+  margin: 0 0 10px;
+  padding-left: 20px;
+  display: grid;
+  gap: 6px;
+}
+
+.formula-note p:last-child {
+  margin-bottom: 0;
+}
+
+.formula-note strong {
+  color: var(--accent-strong);
 }
 
 @media (max-width: 860px) {
