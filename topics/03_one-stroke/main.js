@@ -127,8 +127,42 @@
     },
   ];
 
+  // 第四部分：5 道练习题（奇点数 0/2/4/6/8 → 1/1/2/3/4 笔）
+  const PRACTICES_FIG = [
+    {
+      name: "五角星", box: 120,
+      V: { t0: [60, 10], t1: [108, 45], t2: [89, 101], t3: [31, 101], t4: [12, 45] },
+      E: [["t0", "t2"], ["t2", "t4"], ["t4", "t1"], ["t1", "t3"], ["t3", "t0"]],
+      note: "五个尖角都只连 2 条线，没有奇点，能一笔画成并回到起点。",
+    },
+    {
+      name: "信封", box: 120,
+      V: { TL: [20, 42], TR: [100, 42], BR: [100, 110], BL: [20, 110], O: [60, 76], T: [60, 12] },
+      E: [["TL", "TR"], ["TR", "BR"], ["BR", "BL"], ["BL", "TL"], ["TL", "O"], ["O", "BR"], ["TR", "O"], ["O", "BL"], ["TL", "T"], ["TR", "T"]],
+      note: "线很多，但只有底下两个角是奇点，所以一笔就能画完（从一个底角到另一个底角）。",
+    },
+    {
+      name: "方形带 X", box: 120,
+      V: { TL: [22, 22], TR: [98, 22], BR: [98, 98], BL: [22, 98], O: [60, 60] },
+      E: [["TL", "TR"], ["TR", "BR"], ["BR", "BL"], ["BL", "TL"], ["TL", "O"], ["O", "BR"], ["TR", "O"], ["O", "BL"]],
+      note: "四个角各连 3 条线（奇点），中心连 4 条（偶点）。",
+    },
+    {
+      name: "六角风车", box: 120,
+      V: { v0: [60, 12], v1: [102, 36], v2: [102, 84], v3: [60, 108], v4: [18, 84], v5: [18, 36], O: [60, 60] },
+      E: [["v0", "v1"], ["v1", "v2"], ["v2", "v3"], ["v3", "v4"], ["v4", "v5"], ["v5", "v0"], ["v0", "O"], ["O", "v3"], ["v1", "O"], ["O", "v4"], ["v2", "O"], ["O", "v5"]],
+      note: "六个角各连 3 条线（奇点），中心连 6 条（偶点）。",
+    },
+    {
+      name: "米字", box: 120,
+      V: { O: [60, 60], m0: [108, 60], m1: [94, 94], m2: [60, 108], m3: [26, 94], m4: [12, 60], m5: [26, 26], m6: [60, 12], m7: [94, 26] },
+      E: [["O", "m0"], ["O", "m1"], ["O", "m2"], ["O", "m3"], ["O", "m4"], ["O", "m5"], ["O", "m6"], ["O", "m7"]],
+      note: "八条线的外端各只连 1 条线，都是奇点；中心连 8 条是偶点。和篮球场一样是 8 个奇点。",
+    },
+  ];
+
   if (typeof module !== "undefined" && module.exports) {
-    module.exports = { V: V, EDGES: EDGES, DASHED: DASHED, STROKES: STROKES, ODD: ODD, STROKE_COLORS: STROKE_COLORS, oddOf: oddOf, strokesNeeded: strokesNeeded, trailEndpoints: trailEndpoints, verify: verify, EXAMPLES: EXAMPLES };
+    module.exports = { V: V, EDGES: EDGES, DASHED: DASHED, STROKES: STROKES, ODD: ODD, STROKE_COLORS: STROKE_COLORS, oddOf: oddOf, strokesNeeded: strokesNeeded, trailEndpoints: trailEndpoints, verify: verify, EXAMPLES: EXAMPLES, PRACTICES_FIG: PRACTICES_FIG };
   }
 
   // ============================================================
@@ -181,14 +215,15 @@
   // ============================================================
   // 一般性结论的小例子
   // ============================================================
-  function buildMiniSVG(ex) {
+  function buildMiniSVG(ex, showOdd) {
+    if (showOdd === undefined) showOdd = true;
     let s = '<svg viewBox="0 0 ' + ex.box + " " + ex.box + '" class="mini" role="img" aria-label="' + ex.name + '">';
     ex.E.forEach(function (pr) {
       const p1 = ex.V[pr[0]], p2 = ex.V[pr[1]];
       s += '<line x1="' + p1[0] + '" y1="' + p1[1] + '" x2="' + p2[0] + '" y2="' + p2[1] + '" class="mini-edge"/>';
     });
     const odd = oddOf(ex.E);
-    odd.forEach(function (v) {
+    if (showOdd) odd.forEach(function (v) {
       s += '<circle cx="' + ex.V[v][0] + '" cy="' + ex.V[v][1] + '" r="5.5" class="mini-odd"/>';
     });
     return { svg: s, odd: odd.length, strokes: strokesNeeded(odd.length) };
@@ -236,4 +271,28 @@
     '<figure class="example-card highlight">' +
     buildCourtSVG({ colored: true, active: 0, showOdd: true, showDashed: true }).replace('class="court"', 'class="court mini-court"') +
     '<figcaption><strong>半个篮球场</strong><br>奇点 8 个 → <strong>4 笔</strong></figcaption></figure>';
+
+  // ---- 第四部分：练习题 ----
+  document.querySelector("#practiceList").innerHTML = PRACTICES_FIG.map(function (ex, i) {
+    const q = buildMiniSVG(ex, false);
+    const ans = buildMiniSVG(ex, true);
+    const id = "pa-" + (i + 1);
+    return '<figure class="practice-card">' +
+      '<span class="practice-tag">第 ' + (i + 1) + " 题 · " + ex.name + "</span>" +
+      q.svg +
+      '<p class="practice-q">至少几笔？</p>' +
+      '<button type="button" class="stroke-btn reveal" data-ans="' + id + '">看答案</button>' +
+      '<div class="practice-a" id="' + id + '" hidden>' + ans.svg +
+      "<p>奇点 <strong>" + q.odd + "</strong> 个 → <strong>" + q.strokes + " 笔</strong>。" + ex.note + "</p></div>" +
+      "</figure>";
+  }).join("");
+
+  document.querySelector("#practiceList").addEventListener("click", function (event) {
+    const btn = event.target.closest("[data-ans]");
+    if (!btn) return;
+    const a = document.getElementById(btn.dataset.ans);
+    const show = a.hidden;
+    a.hidden = !show;
+    btn.textContent = show ? "收起答案" : "看答案";
+  });
 })();

@@ -327,6 +327,57 @@
   stroke-width: 2;
 }
 
+/* ---- 第四部分：练习题 ---- */
+.practice-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.practice-card {
+  width: 172px;
+  margin: 0;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fbfcfa;
+  text-align: center;
+}
+
+.practice-tag {
+  display: inline-block;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 800;
+  color: var(--accent);
+}
+
+.practice-q {
+  margin: 4px 0 10px;
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.stroke-btn.reveal {
+  padding: 6px 16px;
+}
+
+.practice-a {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px dashed rgba(31, 92, 89, 0.3);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.practice-a p {
+  margin: 6px 0 0;
+}
+
+.practice-a strong {
+  color: var(--accent-strong);
+}
+
 @media (max-width: 760px) {
   .problem-panel,
   .two-col {
